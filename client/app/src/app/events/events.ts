@@ -26,8 +26,11 @@ import { Event, EventDetail } from './event';
                
                <button class="btn btn-default" (click)="addItem()"> add </button>
                
-               <div *ngFor="#item of events">
-                <EventDetail [item]="item" (click)="removeItem(item.id)">huhu</EventDetail>
+               <div *ngFor="#item of events" class="row">
+                
+                <button (click)="removeItem(item.id)" class="btn btn-default pull-left">x</button>
+                <EventDetail [item]="item">huhu</EventDetail>
+                
                </div>
                
                
@@ -36,7 +39,7 @@ import { Event, EventDetail } from './event';
 export class Events {
 
 
-    events: Events[] = [];
+    events: Event[] = [];
     constructor(private eventService: EventService) {
         this.update();
     }
@@ -59,7 +62,7 @@ export class Events {
             );
     }
     removeItem(id:number){
-        this.eventService.createItem(id)
+        this.eventService.deleteItem(id)
             .subscribe(
                 r => console.log(r),
                 error => console.log('Error: ' + JSON.stringify(error)),

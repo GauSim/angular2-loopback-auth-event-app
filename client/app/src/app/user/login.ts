@@ -20,11 +20,11 @@ import { Routes } from '../app';
 })
 export class Login {
 
-    email: string = "";
+    email: string = '';
     model: {
         "email": string,
         'password': string
-    } = { "email": 'Simon.Gausmann@Gausmann-Media.de', 
+    } = { 'email': 'Simon.Gausmann@Gausmann-Media.de', 
         'password':'123456'
     }
     isLoading: boolean = false;

@@ -46,7 +46,7 @@ export class App {
     }
     logOff() {
         // todo make this nice
-        if (window.confirm("Sure ?")) {
+        if (window.confirm('Sure ?')) {
             this.session.clearToken();
         }
 

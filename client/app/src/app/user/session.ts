@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-sessionStorage.clear();
+// sessionStorage.clear();
 
 export interface UserAuth {
     id: string;
@@ -18,17 +18,15 @@ export class Session {
     static storageKeys = {
         TOKEN: 'TOKEN',
         USERID: 'USERID'
-    }
+    };
 
     stream: Subject<UserAuth> = null;
 
     constructor() {
         if (!Session.isCreating) {
-            throw new Error("You can't call new in Singleton instances!");
+            throw new Error('You cant call new in Singleton instances!');
         }
-
         this.stream = new Subject();
-
     }
 
     static getInstance() {
@@ -36,9 +34,7 @@ export class Session {
             Session.isCreating = true;
             Session.instance = new Session();
             Session.isCreating = false;
-
         }
-
         return Session.instance;
     }
     tryRestore() {
@@ -72,7 +68,7 @@ export class Session {
         this.userAuth = userAuth;
         this.update();
     }
-    isAuthenticated(){
-       return this.userAuth != null && this.userAuth.id;
+    isAuthenticated() {
+       return this.userAuth != null && this.userAuth.id != null;
     }
 }

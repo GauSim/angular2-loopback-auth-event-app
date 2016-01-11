@@ -25,15 +25,13 @@ export class Event {
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     template: `
         <div>
-            {{ item | json }} 
+            {{ item | json }}
         </div>
         `
 })
 export class EventDetail {
     
   @Input() item:Event;
-  
   constructor(element: ElementRef, renderer: Renderer) {
-      
   }
 }
