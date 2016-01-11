@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h3 class="modal-title">
+    Login
+  </h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div *ngIf="isLoading">
+                <h1 class="text-center">loading data</h1>
+            </div>
+            <div *ngIf="!isLoading && responseErrorMessage">
+                <p> {{ responseErrorMessage._body }} </p>
+            </div>
+            <form class="loginForm" #loginForm="ngForm" (ngSubmit)="doLogin()" [hidden]="isLoading">
+
+
+                <div class="form-group has-feedback">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" class="form-control" [(ngModel)]="model.email" ngControl="email" #email="ngForm" placeholder="Email"
+                    required autofocus>
+                    <span class="form-control-feedback">
+                        <span *ngIf="email.valid" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span *ngIf="!email.valid" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </span>
+                    <div *ngIf="!email.valid && email.touched" class="alert alert-danger">
+                        Email angeben
+                    </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" class="form-control" [(ngModel)]="model.password" ngControl="password" #password="ngForm" placeholder="password"
+                    required autofocus>
+                    <span class="form-control-feedback">
+                        <span *ngIf="password.valid" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span *ngIf="!password.valid" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </span>
+                    <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
+                        Password angeben
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-md btn-primary btn-block" [disabled]="!loginForm.form.valid" (click)="doLogin()" type="submit">Login
+    </button>
+</div>
