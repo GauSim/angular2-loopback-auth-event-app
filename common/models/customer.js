@@ -1,3 +1,2 @@
-module.exports = function(Customer) {
-
+module.exports = function (Customer) {
 };

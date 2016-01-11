@@ -23,17 +23,11 @@ import { Event, EventDetail } from './event';
     styles: [],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     template: ` <h1>Events</h1> 
-               
-               <button class="btn btn-default" (click)="addItem()"> add </button>
+               <button class="btn btn-default" (click)="addItemHandler()"> add </button>
                
                <div *ngFor="#item of events" class="row">
-                
-                <button (click)="removeItem(item.id)" class="btn btn-default pull-left">x</button>
-                <EventDetail [item]="item">huhu</EventDetail>
-                
+                    <EventDetail [item]="item" [on-remove]="removeItemHandler"></EventDetail>
                </div>
-               
-               
                `
 })
 export class Events {
@@ -43,31 +37,35 @@ export class Events {
     constructor(private eventService: EventService) {
         this.update();
     }
+    
     update(){
          this.eventService.getItems()
             .subscribe(
                 events => this.events = events,
-                error => console.error('Error: ' + error)
+                error => console.log('Error: ', error)
             );
     }
-    addItem (){
+    
+    addItemHandler = () => {
+        const self = this;
         const newItem = new Event();
-        this.eventService.createItem(newItem)
+        self.eventService.createItem(newItem)
             .subscribe(
                 r => console.log(r),
-                error => console.log('Error: ' + JSON.stringify(error)),
+                error => console.log('Error: ', error),
                 () => {
-                     this.update();
+                     self.update();
                 }
             );
     }
-    removeItem(id:number){
-        this.eventService.deleteItem(id)
+    removeItemHandler = (id:number) =>{
+        const self = this;
+        self.eventService.deleteItem(id)
             .subscribe(
                 r => console.log(r),
-                error => console.log('Error: ' + JSON.stringify(error)),
+                error => console.log('Error: ', error),
                 () => {
-                     this.update();
+                     self.update();
                 }
             )
     }

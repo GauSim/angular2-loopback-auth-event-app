@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http, Headers} from 'angular2/http';
+import { Injectable } from 'angular2/core';
+import { Http, Headers } from 'angular2/http';
 import { Session, UserAuth } from '../user/session';
 import { Event } from './event';
 import { Observable } from 'rxjs/Observable';
@@ -27,7 +27,9 @@ export class EventService {
         this.headers.append('X-Access-Token', this.token);
 
         this.events = this._http.get(`api/customers/${this.userId}/events`, { headers: this.headers })
-            .map(res => res.json());
+            .map(res => res.json())
+            
+            
   }
   
   getItems(){
