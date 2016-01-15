@@ -1,3 +1,4 @@
+import { Injectable } from 'angular2/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -8,6 +9,7 @@ export interface UserAuth {
     userId: string;
 }
 
+@Injectable()
 export class Session {
 
     userAuth: UserAuth = null;

@@ -4,33 +4,34 @@ import {Http, Headers} from 'angular2/http';
 import {CanActivate} from 'angular2/router';
 
 
-import { Session, UserAuth } from '../user/session';
-import { EventService } from './eventService'
-import { Event, EventDetail } from './event';
-
+import { Session, UserAuth } from '../user/Session';
+import { EventService } from './services/EventService'
+import { Event } from './models/Event';
+import { EventDetail } from './EventDetail';
+import { EventCreate } from './EventCreate';
 
 // check if we can rout to thei componet
 @CanActivate((next, prev) => Session.getInstance().isAuthenticated())
 @Component({
-    selector: 'events',
+    selector: 'EventsIndex',
     providers: [],
     directives: [
         ...FORM_DIRECTIVES,
-        EventDetail
+        EventDetail,
+        EventCreate
     ],
     pipes: [],
-    // Our list of styles in our component. We may add more to compose many styles together
     styles: [],
-    // Every Angular template is first compiled by the browser before Angular runs it's compiler
     template: ` <h1>Events</h1> 
-               <button class="btn btn-default" (click)="addItemHandler()"> add </button>
+               
+               <EventCreate [on-create]="addItemHandler"></EventCreate>
                
                <div *ngFor="#item of events" class="row">
                     <EventDetail [item]="item" [on-remove]="removeItemHandler"></EventDetail>
                </div>
                `
 })
-export class Events {
+export class EventsList {
 
 
     events: Event[] = [];
@@ -42,7 +43,7 @@ export class Events {
          this.eventService.getItems()
             .subscribe(
                 events => this.events = events,
-                error => console.log('Error: ', error)
+                e => console.log('Error: ', e)
             );
     }
     
@@ -52,7 +53,7 @@ export class Events {
         self.eventService.createItem(newItem)
             .subscribe(
                 r => console.log(r),
-                error => console.log('Error: ', error),
+                e => console.log('Error: ', e),
                 () => {
                      self.update();
                 }
@@ -63,7 +64,7 @@ export class Events {
         self.eventService.deleteItem(id)
             .subscribe(
                 r => console.log(r),
-                error => console.log('Error: ', error),
+                e => console.log('Error: ', e),
                 () => {
                      self.update();
                 }

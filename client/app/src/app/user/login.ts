@@ -3,7 +3,7 @@ import {FORM_DIRECTIVES} from 'angular2/common';
 import {Http, Headers} from 'angular2/http';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import { Session, UserAuth } from './session';
+import { Session, UserAuth } from './Session';
 import { Routes } from '../app';
 
 @Component({

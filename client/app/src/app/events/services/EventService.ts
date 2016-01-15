@@ -1,22 +1,24 @@
 import { Injectable } from 'angular2/core';
 import { Http, Headers } from 'angular2/http';
-import { Session, UserAuth } from '../user/session';
-import { Event } from './event';
 import { Observable } from 'rxjs/Observable';
+
+import { Session, UserAuth } from '../../user/Session';
+import { Event } from '../models/Event';
 
 
 @Injectable()
 export class EventService {
 
-    _http:Http;
     headers:Headers = null;
     userId:string = null;
     token:string = null;
     events:Observable<Event[]> = null;
     
-    constructor(_http:Http) {
+    constructor(private _http:Http) {
         this._http = _http;
+        
         const session = Session.getInstance();
+        
         if (session.userAuth) {
             this.userId = session.userAuth.userId;
             this.token = session.userAuth.id;
@@ -28,7 +30,6 @@ export class EventService {
 
         this.events = this._http.get(`api/customers/${this.userId}/events`, { headers: this.headers })
             .map(res => res.json())
-            
             
   }
   

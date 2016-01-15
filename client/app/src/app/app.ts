@@ -1,22 +1,18 @@
-/*
- * Angular 2 decorators and services
- */
-import {Component, NgZone} from 'angular2/core';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {FORM_PROVIDERS} from 'angular2/common';
+import { Component, NgZone } from 'angular2/core';
+import { FORM_PROVIDERS } from 'angular2/common';
+import { RouteConfig, Router, ROUTER_DIRECTIVES } from 'angular2/router';
 
-
-import {Home} from './home/home';
-import {Events} from './events/events';
-import {Login} from './user/login';
-import {Session, UserAuth} from './user/session';
+import { Home } from './home/home';
+import { EventsList } from './events/EventsList';
+import { Login } from './user/login';
+import { Session, UserAuth } from './user/Session';
 
 
 export const Routes = {
     index: { path: '/', component: Home, name: 'Index' },
     home: { path: '/home', component: Home, name: 'Home' },
     login: { path: '/login', component: Login, name: 'Login' },
-    events: { path: '/events', component: Events, name: 'Events' },
+    events: { path: '/events', component: EventsList, name: 'Events' },
     all: { path: '/**', redirectTo: ['Index'] }
 };
 
