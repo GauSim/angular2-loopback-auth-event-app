@@ -1,5 +1,6 @@
-import {Directive, Component, ElementRef, Renderer, Input} from 'angular2/core';
-import {Event} from './models/Event';
+import { Directive, Component, ElementRef, Renderer, Input } from 'angular2/core';
+import { Event } from './models/Event';
+import { EventService } from './services/EventService';
 
 
 @Component({
@@ -10,16 +11,36 @@ import {Event} from './models/Event';
     styles: [],
     template: `
         <div>
-            <button (click)="onRemove(item.id)" class="btn btn-default pull-left">x</button>
-            {{ item | json }}
+            <button (click)="removeItem(item.id)" class="btn btn-default">x</button>
+            <b> {{ item.date | date }} </b> -
+            {{ item.name }}
         </div>
         `
 })
 export class EventDetail {
-    
-  @Input() item:Event;
-  @Input('on-remove') onRemove:Event;
-  
-  constructor(element: ElementRef, renderer: Renderer) {
-  }
+
+    @Input() item: Event;
+    @Input('update-list') updateList: () => void;
+
+    constructor(private eventService: EventService,
+        private element: ElementRef,
+        private renderer: Renderer) {
+
+        console.log(eventService);
+    }
+
+    removeItem(id: number) {
+        this.eventService.deleteItem(id)
+            .subscribe(
+            result => console.log(result),
+            error => console.log('Error: ', error),
+            () => {
+                this.updateList();
+            }
+            )
+    }
+
+    ngOnInit() {
+
+    }
 }

@@ -1,0 +1,125 @@
+<style>
+    .calenderFrame {
+        width: 315px;
+        /* 7*item */
+    }
+    
+    .calenderItem {}
+    
+    .monthItem {
+        height: 270px;
+        /* 6*item */
+    }
+    
+    .monthHeadline {
+        border-bottom: 1px solid gray;
+        padding: 10px;
+    }
+    
+    .dateItem {
+        height: 45px;
+        line-height: 45px;
+        width: 45px;
+        display: block;
+        float: left;
+        text-align: center;
+    }
+    
+    .pointer {
+        cursor: pointer;
+    }
+    
+    .canInteract {
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+    }
+    
+    .canInteract:hover {
+        background: gray;
+        color: #fff;
+    }
+    
+    .isCurrent {
+        background: red !important;
+        color: #fff;
+    }
+</style>
+
+
+<div class="calenderFrame">
+    <div [hidden]="!UI.showCalender" class="calenderItem">
+
+        <div class="row">
+            <div class="col-md-12 monthHeadline">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3 text-right">
+                                <a (click)="setMonth(-1)" class="pointer">
+                                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <strong> {{ selected.format('MMM') }}</strong>
+                            </div>
+                            <div class="col-md-3 ">
+                                <a (click)="setMonth(+1)" class="pointer">
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3 text-right">
+                                <a (click)="setYear(-1)" class="pointer">
+                                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <strong> {{ selected.format('YYYY') }} </strong>
+                            </div>
+                            <div class="col-md-3 ">
+                                <a (click)="setYear(+1)" class="pointer">
+                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dateItem" *ngFor="#day of UI.weekDays">
+                    {{ day }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-12 monthItem ">
+                <div *ngFor="#date of days" class="dateItem">
+                    <div *ngIf="!date"> &nbsp; </div>
+                    <div *ngIf="date" class="canInteract" [class.isCurrent]="(outputDate && outputDate.format()=== date.format())" (click)="setOutputDate(date)">
+                        {{ date.format('DD') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <div class="input-group has-feedback">
+        <a class="input-group-addon pointer" (click)="toggleCalender()">
+            <span class="glyphicon glyphicon-calendar " aria-hidden="true "></span>
+            <small *ngIf="outputDate">{{ outputDate.format('DD.MM.YY') }}</small>
+        </a>
+        <input type="text" class="form-control" [ngFormControl]="textBoxInput" [ngModel]="(outputDate ? outputDate.format('DD.MM.YYYY') : '')">
+    </div>
+</div>

@@ -10,6 +10,7 @@ import { Event } from './models/Event';
 import { EventDetail } from './EventDetail';
 import { EventCreate } from './EventCreate';
 
+
 // check if we can rout to thei componet
 @CanActivate((next, prev) => Session.getInstance().isAuthenticated())
 @Component({
@@ -18,17 +19,20 @@ import { EventCreate } from './EventCreate';
     directives: [
         ...FORM_DIRECTIVES,
         EventDetail,
-        EventCreate
+        EventCreate,
     ],
     pipes: [],
     styles: [],
     template: ` <h1>Events</h1> 
                
-               <EventCreate [on-create]="addItemHandler"></EventCreate>
+               <EventCreate [update-list]="updateHandler"></EventCreate>
                
-               <div *ngFor="#item of events" class="row">
-                    <EventDetail [item]="item" [on-remove]="removeItemHandler"></EventDetail>
-               </div>
+               <ul class="list-group">
+                    <li class="list-group-item" *ngFor="#item of events">
+                        <EventDetail [item]="item" [update-list]="updateHandler"></EventDetail>
+                    </li>
+               </ul>
+              
                `
 })
 export class EventsList {
@@ -38,37 +42,19 @@ export class EventsList {
     constructor(private eventService: EventService) {
         this.update();
     }
-    
-    update(){
-         this.eventService.getItems()
+
+    update() {
+        this.eventService.getItems()
             .subscribe(
-                events => this.events = events,
-                e => console.log('Error: ', e)
+            (events: Event[]) => {
+                this.events = events;
+            },
+            error => console.log('Error: ', error)
             );
     }
-    
-    addItemHandler = () => {
+
+    updateHandler = () => {
         const self = this;
-        const newItem = new Event();
-        self.eventService.createItem(newItem)
-            .subscribe(
-                r => console.log(r),
-                e => console.log('Error: ', e),
-                () => {
-                     self.update();
-                }
-            );
+        self.update();
     }
-    removeItemHandler = (id:number) =>{
-        const self = this;
-        self.eventService.deleteItem(id)
-            .subscribe(
-                r => console.log(r),
-                e => console.log('Error: ', e),
-                () => {
-                     self.update();
-                }
-            )
-    }
-    
 }
