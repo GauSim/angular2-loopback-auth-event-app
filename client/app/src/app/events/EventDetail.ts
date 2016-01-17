@@ -9,13 +9,7 @@ import { EventService } from './services/EventService';
     directives: [],
     pipes: [],
     styles: [],
-    template: `
-        <div>
-            <button (click)="removeItem(item.id)" class="btn btn-default">x</button>
-            <b> {{ item.date | date }} </b> -
-            {{ item.name }}
-        </div>
-        `
+    template: require('./templates/EventDetail.html')
 })
 export class EventDetail {
 
@@ -26,18 +20,23 @@ export class EventDetail {
         private element: ElementRef,
         private renderer: Renderer) {
 
+
+
         console.log(eventService);
     }
 
     removeItem(id: number) {
-        this.eventService.deleteItem(id)
-            .subscribe(
-            result => console.log(result),
-            error => console.log('Error: ', error),
-            () => {
-                this.updateList();
-            }
-            )
+        const userInput = window.confirm('Sure ?');
+        if (true) {
+            this.eventService.deleteItem(id)
+                .subscribe(
+                result => console.log(result),
+                error => console.log('Error: ', error),
+                () => {
+                    this.updateList();
+                }
+                )
+        }
     }
 
     ngOnInit() {

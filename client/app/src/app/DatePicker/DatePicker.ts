@@ -32,7 +32,7 @@ export class DatePicker {
 
     UI = {
         weekDays: moment.weekdaysShort(),
-        showCalender: false
+        showCalender: true
     }
 
 
@@ -122,7 +122,6 @@ export class DatePicker {
     }
 
     setOutputDate(d: moment.Moment) {
-        this.UI.showCalender = false;
         this.outputDate = d;
         this.onSelect.emit(this.outputDate.toDate());
     }

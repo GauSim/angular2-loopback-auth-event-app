@@ -1,20 +1,32 @@
 <div>
-    <button (click)="toggelForm()" class="btn btn-default">
-        <span [hidden]="!hideForm"> show form</span>
-        <span [hidden]="hideForm"> hide form</span>
-    </button>
     <div class="panel panel-default" [hidden]="hideForm">
         <div class="panel-heading">
             Create Event
         </div>
         <div class="panel-body">
-            <form class="loginForm" #loginForm="ngForm" (ngSubmit)="createItem(item)" [hidden]="isLoading">
 
+
+
+            <form class="loginForm" #loginForm="ngForm" (ngSubmit)="createItem(item)">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">name*</label>
-                            <input type="text" [(ngModel)]="item.name" ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="name">
+                            <input type="text" autofocus [(ngModel)]="item.name" ngControl="name" #name="ngForm" class="form-control" id="name" placeholder="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">location</label>
+                            <input type="text" [(ngModel)]="item.location" ngControl="location" #location="ngForm" class="form-control" id="location"
+                            placeholder="location">
+                        </div>
+                        <div class="form-group">
+                            <label for="url">url</label>
+                            <input type="url" [(ngModel)]="item.url" ngControl="url" #url="ngForm" class="form-control" id="url" placeholder="url">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">description</label>
+                            <textarea [(ngModel)]="item.description" ngControl="description" #description="ngForm" class="form-control" id="description"
+                            placeholder="description"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -25,31 +37,22 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="location">location</label>
-                            <input type="text" [(ngModel)]="item.location" ngControl="location" #location="ngForm" class="form-control" id="location"
-                            placeholder="location">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="url">url</label>
-                            <input type="url" [(ngModel)]="item.url" ngControl="url" #url="ngForm" class="form-control" id="url" placeholder="url">
-                        </div>
-                    </div>
-                </div>
+                <div [hidden]="!isLoading"> loading </div>
 
-                <div class="form-group">
-                    <label for="description">description</label>
-                    <textarea [(ngModel)]="item.description" ngControl="description" #description="ngForm" class="form-control" id="description"
-                    placeholder="description"></textarea>
+                <div [hidden]="!serverMsg">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" *ngIf="(serverMsg && serverMsg.error && serverMsg.error.message)">
+                            {{ serverMsg.error.message}}
+                        </div>
+                        <pre *ngIf="!(serverMsg && serverMsg.error && serverMsg.error.message)">{{ serverMsg | json }}</pre>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary pull-right"> add </button>
+                        <button type="submit" class="btn btn-primary pull-right"> add item </button>
+                        <a (click)="toggelForm()" class="btn btn-default pull-right"> close
+                        </a>
                     </div>
                 </div>
 
@@ -57,6 +60,13 @@
         </div>
     </div>
 
+    <div class="row" [hidden]="!hideForm">
+        <div class="col-md-12">
+            <button (click)="toggelForm()" class="btn btn-default">
+                <span> Create </span>
+            </button>
+        </div>
+    </div>
 
 
 

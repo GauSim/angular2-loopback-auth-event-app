@@ -4,10 +4,9 @@ export class Event {
     description: string = '';
     id: number = 0;
     location: string = '';
-    name: string = 'test';
+    name: string = '';
     url: string = '';
 
     constructor() {
-        this.date.setHours(2);
     }
 }
