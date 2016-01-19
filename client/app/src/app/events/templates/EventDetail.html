@@ -1,7 +1,23 @@
 <div>
-    <button (click)="removeItem(item.id)" class="btn btn-default">x</button>
+
     <b> {{ item.date | date }} </b> - {{ item.name }}
     <p>{{ item.url }}</p>
     <br/>
     <p>{{ item.description }}</p>
 </div>
+
+<form class="form-inline">
+
+    <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="item.name" placeholder="name">
+    </div>
+
+
+    <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="item.location" placeholder="location">
+    </div>
+
+
+    <button (click)="removeItem(item.id)" class="btn btn-default">x</button>
+    <button class="btn btn-default">Save</button>
+</form>

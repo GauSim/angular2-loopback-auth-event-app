@@ -28,11 +28,10 @@ export class DatePicker {
 
     @Input('input-date') inputDate: Date;
     @Output('on-select') onSelect = new EventEmitter<Date>();
-
+    @Input('show-calender') showCalender: boolean;
 
     UI = {
-        weekDays: moment.weekdaysShort(),
-        showCalender: true
+        weekDays: moment.weekdaysShort()
     }
 
 
@@ -78,7 +77,7 @@ export class DatePicker {
     }
 
     toggleCalender() {
-        this.UI.showCalender = !this.UI.showCalender;
+        this.showCalender = !this.showCalender;
     }
 
     renderCalender() {

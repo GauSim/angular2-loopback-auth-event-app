@@ -2,6 +2,8 @@ import { Directive, Component, ElementRef, Renderer, Input } from 'angular2/core
 import { Event } from './models/Event';
 import { EventService } from './services/EventService';
 
+import { DatePicker } from '../DatePicker/DatePicker';
+
 
 @Component({
     selector: 'EventDetail',
@@ -19,10 +21,6 @@ export class EventDetail {
     constructor(private eventService: EventService,
         private element: ElementRef,
         private renderer: Renderer) {
-
-
-
-        console.log(eventService);
     }
 
     removeItem(id: number) {
