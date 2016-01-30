@@ -12,7 +12,8 @@
         <input type="text" class="form-control" [(ngModel)]="item.name" placeholder="name">
     </div>
 
-
+    <DatePicker [input-date]="item.date" [show-calender]="false" (on-select)="item.date = $event" ></DatePicker>
+    
     <div class="form-group">
         <input type="text" class="form-control" [(ngModel)]="item.location" placeholder="location">
     </div>

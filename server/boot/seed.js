@@ -25,9 +25,13 @@ module.exports = function (server) {
 
 
         const create = () => {
+
+            const date = new Date();
+            date.setFullYear(2015);
+            
             const event = {
                 "name": "string",
-                "date": new Date(),
+                "date": date,
                 "url": "string",
                 "location": "string",
                 "description": "string",

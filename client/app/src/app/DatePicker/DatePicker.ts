@@ -126,6 +126,8 @@ export class DatePicker {
     }
 
     ngOnInit() {
-
+        this.selected = moment(this.inputDate);
+        this.outputDate = moment(this.inputDate);
+        this.renderCalender();
     }
 }

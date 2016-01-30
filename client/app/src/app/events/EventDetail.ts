@@ -8,7 +8,7 @@ import { DatePicker } from '../DatePicker/DatePicker';
 @Component({
     selector: 'EventDetail',
     providers: [],
-    directives: [],
+    directives: [DatePicker],
     pipes: [],
     styles: [],
     template: require('./templates/EventDetail.html')

@@ -19,20 +19,19 @@ import { EventCreate } from './EventCreate';
     directives: [
         ...FORM_DIRECTIVES,
         EventDetail,
-        EventCreate,
+        EventCreate
     ],
     pipes: [],
     styles: [],
     template: ` <h1>Events</h1> 
-               
-               <EventCreate [update-list]="updateHandler"></EventCreate>
-               
+            
+                <EventCreate [update-list]="updateHandler"></EventCreate>
+                              
                <ul class="list-group">
                     <li class="list-group-item" *ngFor="#item of events">
                         <EventDetail [item]="item" [update-list]="updateHandler"></EventDetail>
                     </li>
                </ul>
-              
                `
 })
 export class EventsList {
